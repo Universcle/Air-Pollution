@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Analysis</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #ffffff15, transparent 80%);
+            animation: rotate-bg 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-bg {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 7.5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-section h1, .form-section h3, .results-container h3, .plot-container h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-section select, .form-section button, .features input[type="checkbox"], .features label {
+            font-size: 0.75rem;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+        .features input {
+            margin-right: 5px;
+        }
+
+        button {
+            color: white;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 25px;
+            padding: 7.5px 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .results-layout {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .results-container, .plot-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 150px;
+        }
+
+        .results-container p {
+            font-size: 0.75rem;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            color: black;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 0.45rem;
+            overflow: auto;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>Classification Analysis</h1>
+            <form id="classification-form" action="/classification" method="POST">
+                <h3>Select Features:</h3>
+                <div class="features">
+                    <div>
+                        <input type="checkbox" id="Temperature" name="features" value="Temperature">
+                        <label for="Temperature">Temperature</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Humidity" name="features" value="Humidity">
+                        <label for="Humidity">Humidity</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PM10" name="features" value="PM10">
+                        <label for="PM10">PM10</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="NO2" name="features" value="NO2">
+                        <label for="NO2">NO2</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="SO2" name="features" value="SO2">
+                        <label for="SO2">SO2</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PM2.5" name="features" value="PM2.5">
+                        <label for="PM2.5">PM2.5</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="CO" name="features" value="CO">
+                        <label for="CO">CO</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Proximity_to_Industrial_Areas" name="features" value="Proximity_to_Industrial_Areas">
+                        <label for="Proximity_to_Industrial_Areas">Proximity to Industrial Areas</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Population_Density" name="features" value="Population_Density">
+                        <label for="Population_Density">Population Density</label>
+                    </div>
+                </div>
+
+                <h3>Select Classifier:</h3>
+                <select id="classifier" name="classifier" required>
+                    <option value="logistic_regression">Logistic Regression</option>
+                    <option value="svm">Support Vector Machines</option>
+                    <option value="random_forest">Random Forest</option>
+                    <option value="naive_bayes">Naive Bayes</option>
+                </select>
+
+                <button type="submit">Run Classification</button>
+            </form>
+
+            <button onclick="window.location.href='/'">Home</button>
+        </div>
+
+        {% if plot_url %}
+        <div class="results-layout">
+            <div class="results-container">
+                <h3>Accuracy:</h3>
+                <p>{{ accuracy }}</p>
+                <h3>Classification Report:</h3>
+                <pre>{{ class_report }}</pre>
+            </div>
+            <div class="plot-container">
+                <h3>ROC Curve</h3>
+                <img src="data:image/png;base64,{{ plot_url }}" alt="ROC Curve">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
