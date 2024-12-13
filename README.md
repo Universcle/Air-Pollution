@@ -4,30 +4,102 @@ This project is a Flask-based web application for analyzing air quality data thr
 
 ## Features
 
-- **Classification**: Perform air quality classification using various algorithms (e.g., Logistic Regression, SVM, Random Forest, Naive Bayes).
-- **Regression**: Generate regression surfaces to predict air quality metrics using algorithms like Linear Regression, Ridge, and Random Forest.
-- **Clustering**: Perform K-means clustering on air quality data and visualize clusters on feature axes.
-- **Interactive Visualizations**: Real-time ROC curves, regression surfaces, and clustering scatter plots.
+- **Classification**:
+  - Perform air quality classification using various algorithms like Logistic Regression, SVM, Random Forest, and Naive Bayes.
+  - Generate classification reports, accuracy metrics, and real-time ROC curves.
+
+- **Regression**:
+  - Analyze and visualize regression surfaces using Linear Regression, Ridge, Lasso, Decision Trees, and Random Forest.
+  - Predict air quality metrics interactively.
+
+- **Clustering**:
+  - Conduct K-means clustering to uncover patterns in air quality data.
+  - Visualize clusters with interactive scatter plots.
+
+- **Interactive Visualizations**:
+  - Real-time visualizations for regression surfaces, clustering, and classification metrics.
+
+---
+
+## Dataset
+
+This project uses the **[Air Quality and Pollution Assessment](https://www.kaggle.com/datasets/mujtabamatin/air-quality-and-pollution-assessment)** dataset, which is made available under the **Apache 2.0 License**.
+
+### License Summary
+
+The Apache 2.0 License allows you to:
+
+- Freely use, modify, and distribute the dataset for personal, educational, or commercial purposes.
+- Include the license and copyright notice in any distributed copies or derivative works.
+
+For full details, refer to the **[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)**.
+
+### Dataset Features
+
+The dataset contains the following attributes:
+- **Temperature**: Average temperature in the area.
+- **Humidity**: Average humidity level.
+- **PM10**: Particulate matter ≤10 µm.
+- **NO2**, **SO2**, **CO**: Concentration levels of nitrogen dioxide, sulfur dioxide, and carbon monoxide.
+- **PM2.5**: Particulate matter ≤2.5 µm.
+- **Proximity to Industrial Areas**: Distance to the nearest industrial area.
+- **Population Density**: Population per square kilometer.
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python 3.7 or higher
-- Virtual environment (optional but recommended)
+- Virtual environment (recommended)
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**:
 
    ```bash
    git clone https://github.com/Universcle/Air-Pollution.git
+   cd Air-Pollution
+   ```
 
-2. Setup environment using requirements.txt
+2. **Set up the virtual environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # macOS/Linux
+   venv\Scripts\activate     # Windows
+   ```
 
-3. Run the backend code (app.py) in terminal:
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+4. **Prepare the dataset**:
+   - Place the `updated_pollution_dataset.csv` in the project directory.
+
+5. **Run the application**:
    ```bash
    python app.py
+   ```
 
-4. Click the link: http://127.0.0.1:5000
+6. Open your browser and go to [http://127.0.0.1:5000](http://127.0.0.1:5000).
+
+---
+
+## File Structure
+
+- **`app.py`**: Backend Flask application managing routes, machine learning models, and data processing.
+- **`templates/`**: HTML templates for the web interface.
+- **`static/`**: CSS, JavaScript, and images for the frontend.
+- **`updated_pollution_dataset.csv`**: Dataset for air quality analysis.
+
+---
+
+## License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
+
+---
+
+This version is more detailed and user-friendly, providing clear instructions and highlighting features effectively. Let me know if you'd like any additional changes!
