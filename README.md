@@ -34,16 +34,39 @@ The Apache 2.0 License allows you to:
 
 For full details, refer to the **[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)**.
 
-### Dataset Features
+### Dataset Features & Target Variable
 
 The dataset contains the following attributes:
-- **Temperature**: Average temperature in the area.
-- **Humidity**: Average humidity level.
-- **PM10**: Particulate matter ≤10 µm.
-- **NO2**, **SO2**, **CO**: Concentration levels of nitrogen dioxide, sulfur dioxide, and carbon monoxide.
-- **PM2.5**: Particulate matter ≤2.5 µm.
-- **Proximity to Industrial Areas**: Distance to the nearest industrial area.
+- **Temperature (°C)**: Average temperature of the region.
+- **Humidity (%)**: Relative humidity recorded in the region.
+- **PM2.5 Concentration (µg/m³)**: Fine particulate matter levels.
+- **PM10 Concentration (µg/m³)**: Coarse particulate matter levels.
+- **NO2 Concentration (ppb)**: Nitrogen dioxide levels.
+- **SO2 Concentration (ppb)**: Sulfur dioxide levels.
 - **Population Density**: Population per square kilometer.
+- **CO Concentration (ppm)**: Carbon monoxide levels.
+- **Proximity to Industrial Areas (km)**: Distance to the nearest industrial zone.
+- **Population Density (people/km²)**: Number of people per square kilometer in the region.
+  
+The target variable is **Air Quality** which has four levels:
+- **Good**: Clean air with low pollution levels.
+- **Moderate**: Acceptable air quality but with some pollutants present.
+- **Poor**: Noticeable pollution that may cause health issues for sensitive groups.
+- **Hazardous**: Highly polluted air posing serious health risks to the population.
+  
+---
+
+## Screenshots
+
+<p float="left">
+  <img src="assets/homepage.png" alt="Homepage" width="45%">
+  <img src="assets/clustering.png" alt="Clustering" width="45%">
+</p>
+
+<p float="left">
+  <img src="assets/classification.png" alt="Classification" width="45%">
+  <img src="assets/regression.png" alt="Regression" width="45%">
+</p>
 
 ---
 
