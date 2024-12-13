@@ -21,5 +21,5 @@ This project is a Flask-based web application for analyzing air quality data thr
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/air-quality-analysis.git
+   git clone https://github.com/Universcle/Air-Pollution.git
    cd air-quality-analysis
