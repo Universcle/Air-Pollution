@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #ffffff15, transparent 80%);
+            animation: rotate-bg 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-bg {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-size: 16px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        select, input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        button {
+            color: white;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plot img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clustering Analysis</h1>
+        <form id="clustering-form" action="/clustering" method="POST">
+            <label for="k-value">Number of Clusters (k):</label>
+            <input type="number" id="k-value" name="k_value" min="1" required>
+
+            <label for="feature">Feature for Clustering:</label>
+            <select id="feature" name="feature" required onchange="updateAxisOptionsAndValidate()">
+                <option value="none" selected>Please select</option>
+                <option value="Temperature">Temperature</option>
+                <option value="Humidity">Humidity</option>
+                <option value="PM10">PM10</option>
+                <option value="NO2">NO2</option>
+                <option value="SO2">SO2</option>
+                <option value="PM2.5">PM2.5</option>
+                <option value="CO">CO</option>
+                <option value="Proximity_to_Industrial_Areas">Proximity to Industrial Areas</option>
+                <option value="Population_Density">Population Density</option>
+            </select>
+
+            <label for="x-axis">X-Axis Feature:</label>
+            <select id="x-axis" name="x_axis" required>
+                <option value="Temperature">Temperature</option>
+                <option value="Humidity">Humidity</option>
+                <option value="PM10">PM10</option>
+                <option value="NO2">NO2</option>
+                <option value="SO2">SO2</option>
+                <option value="PM2.5">PM2.5</option>
+                <option value="CO">CO</option>
+                <option value="Proximity_to_Industrial_Areas">Proximity to Industrial Areas</option>
+                <option value="Population_Density">Population Density</option>
+            </select>
+
+            <label for="y-axis">Y-Axis Feature:</label>
+            <select id="y-axis" name="y_axis" required>
+                <option value="Temperature">Temperature</option>
+                <option value="Humidity">Humidity</option>
+                <option value="PM10">PM10</option>
+                <option value="NO2">NO2</option>
+                <option value="SO2">SO2</option>
+                <option value="PM2.5">PM2.5</option>
+                <option value="CO">CO</option>
+                <option value="Proximity_to_Industrial_Areas">Proximity to Industrial Areas</option>
+                <option value="Population_Density">Population Density</option>
+            </select>
+
+            <button type="submit" id="run-button" disabled>Run Clustering</button>
+        </form>
+
+        <button onclick="window.location.href='/'">Home</button>
+
+        {% if plot_url %}
+        <div class="plot">
+            <h2>Clustering Result</h2>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Clustering Plot">
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function updateAxisOptionsAndValidate() {
+            const clusteringFeature = document.getElementById('feature').value;
+            const xAxisSelect = document.getElementById('x-axis');
+            const yAxisSelect = document.getElementById('y-axis');
+            const runButton = document.getElementById('run-button');
+
+            // Get all feature options
+            const features = [
+                "Temperature", "Humidity", "PM10", "NO2", "SO2", "PM2.5", 
+                "CO", "Proximity_to_Industrial_Areas", "Population_Density"
+            ];
+
+            // Enable or disable the Run button based on the selected clustering feature
+            runButton.disabled = clusteringFeature === "none";
+
+            // Clear current options for x-axis and y-axis
+            xAxisSelect.innerHTML = '';
+            yAxisSelect.innerHTML = '';
+
+            // Populate options, excluding the clustering feature
+            features.forEach(feature => {
+                if (clusteringFeature === "none" || feature !== clusteringFeature) {
+                    const xOption = document.createElement('option');
+                    xOption.value = feature;
+                    xOption.textContent = feature;
+                    xAxisSelect.appendChild(xOption);
+
+                    const yOption = document.createElement('option');
+                    yOption.value = feature;
+                    yOption.textContent = feature;
+                    yAxisSelect.appendChild(yOption);
+                }
+            });
+        }
+
+        // Initial validation
+        updateAxisOptionsAndValidate();
+    </script>
+</body>
+</html>
