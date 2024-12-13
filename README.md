@@ -23,9 +23,7 @@ This project is a Flask-based web application for analyzing air quality data thr
    ```bash
    git clone https://github.com/Universcle/Air-Pollution.git
 
-2. Setup environment:
-
-   Using requirements.txt
+2. Setup environment using requirements.txt
 
 3. Run the backend code (app.py) in terminal:
 
