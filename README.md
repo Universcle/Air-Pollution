@@ -34,26 +34,6 @@ The Apache 2.0 License allows you to:
 
 For full details, refer to the **[Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)**.
 
-### Dataset Features & Target Variable
-
-The dataset contains the following attributes:
-- **Temperature (°C)**: Average temperature of the region.
-- **Humidity (%)**: Relative humidity recorded in the region.
-- **PM2.5 Concentration (µg/m³)**: Fine particulate matter levels.
-- **PM10 Concentration (µg/m³)**: Coarse particulate matter levels.
-- **NO2 Concentration (ppb)**: Nitrogen dioxide levels.
-- **SO2 Concentration (ppb)**: Sulfur dioxide levels.
-- **Population Density**: Population per square kilometer.
-- **CO Concentration (ppm)**: Carbon monoxide levels.
-- **Proximity to Industrial Areas (km)**: Distance to the nearest industrial zone.
-- **Population Density (people/km²)**: Number of people per square kilometer in the region.
-  
-The target variable is **Air Quality** which has four levels:
-- **Good**: Clean air with low pollution levels.
-- **Moderate**: Acceptable air quality but with some pollutants present.
-- **Poor**: Noticeable pollution that may cause health issues for sensitive groups.
-- **Hazardous**: Highly polluted air posing serious health risks to the population.
-  
 ---
 
 ## Screenshots
@@ -98,15 +78,12 @@ The target variable is **Air Quality** which has four levels:
    pip install -r requirements.txt
    ```
 
-4. **Prepare the dataset**:
-   - Place the `updated_pollution_dataset.csv` in the project directory.
-
-5. **Run the application**:
+4. **Run the application**:
    ```bash
    python app.py
    ```
 
-6. Open your browser and go to [http://127.0.0.1:5000](http://127.0.0.1:5000).
+5. Open your browser and go to [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ---
 
